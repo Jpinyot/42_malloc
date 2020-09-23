@@ -1,0 +1,38 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    info.txt                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/09/23 11:39:54 by jpinyot           #+#    #+#              #
+#    Updated: 2020/09/23 11:48:13 by jpinyot          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+MALLOC
+
+Allowed Functions:
+	1. void* mmap(void * addr, size_t length, int prot, int flags, int fd, off_t offset)
+		-creates a new mapping in the virtual address space of the
+       calling process.  The starting address for the new mapping is
+       specified in addr.  The length argument specifies the length of the
+       mapping (which must be greater than 0).
+	2. int munmap(void * addr, size_t length, int prot)
+		-is a system call deletes the mappings for the specified address range, and causes further references to addresses within the range to generate invalid memory references.
+	3. int getpagesize(void)
+		-returns the number of bytes in a memory page, where "page" is a fixed-length block, the unit for memory allocation and file mapping performed by mmap(2).
+	4. int getrlimit(int resource, struct rlimit *rlim)
+		-system calls get resource limits. Each resource has an associated soft and hard limit, as defined by the rlimit structure:
+	-struct rlimit {
+               rlim_t rlim_cur;  /* Soft limit */
+               rlim_t rlim_max;  /* Hard limit (ceiling for rlim_cur) */
+         };
+
+Malloc functionality:
+	1. TINY from 1 to n bytes
+		- will be stored in N bytes big zones.
+	1. SMALL from n to m bytes
+		- will be stored in M bytes big zones.
+	1. LARGE > than m
+		- will be stored out of zone, with mmap().
