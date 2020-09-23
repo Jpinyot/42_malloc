@@ -6,7 +6,7 @@
 #    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 11:39:54 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/23 11:48:13 by jpinyot          ###   ########.fr        #
+#    Updated: 2020/09/23 12:20:17 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,16 @@ Allowed Functions:
                rlim_t rlim_max;  /* Hard limit (ceiling for rlim_cur) */
          };
 
-Malloc functionality:
-	1. TINY from 1 to n bytes
+Malloc functionality(100 allocations each zone):
+	1. TINY: from 1 to n bytes
 		- will be stored in N bytes big zones.
-	1. SMALL from n to m bytes
+	1. SMALL: from n to m bytes
 		- will be stored in M bytes big zones.
-	1. LARGE > than m
+	1. LARGE: > than m
 		- will be stored out of zone, with mmap().
+
+Bounus:
+	-Malloc debug envitoment varables
+	-Create a show_alloc_men_ex()
+	-Defragment thefreed memory
+	-Manage the use of your mallocin a multi-threaded progrma(pthread lib)
