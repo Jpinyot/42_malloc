@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/24 12:23:08 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/24 12:51:49 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct	s_mem_block
 	void			*addr;
 	size_t			size;
 	enum e_zones_type	zone_type;
-	struct s_mem_block	*left;
-	struct s_mem_block	*right;
+	struct s_mem_block	*next;
+	/* struct s_mem_block	*left; */
+	/* struct s_mem_block	*right; */
 }		t_mem_block;
 
 /* ypedef struct		s_block { */
@@ -77,6 +78,5 @@ void	show_alloc_mem();
 t_mem_block	*new_block();
 void		delete_block();
 void		delete_next_block();
-
 
 #endif
