@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/24 10:19:21 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/24 12:23:08 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,11 @@ void	*malloc(size_t size);
 void	*realloc(void *ptr, size_t size);
 
 void	show_alloc_mem();
+
+/* UTILS */
+t_mem_block	*new_block();
+void		delete_block();
+void		delete_next_block();
+
 
 #endif

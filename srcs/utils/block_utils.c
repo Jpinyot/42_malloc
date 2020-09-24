@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_main.c                                        :+:      :+:    :+:   */
+/*   block_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/24 10:04:12 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/24 11:16:49 by jpinyot          ###   ########.fr       */
+/*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
+/*   Updated: 2020/09/24 12:31:02 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "../include/libmalloc.h" */
 #include "libmalloc.h"
 
-int	main(void)
+t_mem_block	*new_block(const size_t* size)
 {
-	return (0);
+	t_mem_block* block;
+
+	block = mmap(NULL, sizeof(t_mem_block);
+
+	return (block);
 }

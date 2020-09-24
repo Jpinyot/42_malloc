@@ -6,7 +6,7 @@
 #    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/24 10:23:30 by jpinyot          ###   ########.fr        #
+#    Updated: 2020/09/24 12:24:40 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ cmake_minimum_required(VERSION 3.10)
 project(malloc C)
 
 # for YCM vim
-set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # set definitions
 #add_definitions(-O2)
@@ -26,14 +26,16 @@ set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 # DSLR
 add_executable(		malloc
 			srcs/test_main.c
+			srcs/utils/block_utils.c
 			)
 
-include_directories(
+target_include_directories(malloc PRIVATE 
 			"${CMAKE_SOURCE_DIR}/includes"
 			)
-# set(HEADER_FILES	malloc
-# 			includes/libmalloc.h
-# 			)
+
+set(HEADER_FILES	
+			includes/libmalloc.h
+			)
 
 #find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 #target_link_libraries (DSLR Eigen3::Eigen)
