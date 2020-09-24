@@ -6,15 +6,18 @@
 #    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/23 10:19:38 by jpinyot          ###   ########.fr        #
+#    Updated: 2020/09/24 10:23:30 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 cmake_minimum_required(VERSION 3.10)
-set (CMAKE_CXX_STANDARD 11)
+# set (CMAKE_CXX_STANDARD 11)
 
 # set the project name
-project(malloc)
+project(malloc C)
+
+# for YCM vim
+set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 
 # set definitions
 #add_definitions(-O2)
@@ -22,11 +25,15 @@ project(malloc)
 # add the executable
 # DSLR
 add_executable(		malloc
-			srcs/*
+			srcs/test_main.c
 			)
-set(HEADER_FILES	malloc
-			includes/*
+
+include_directories(
+			"${CMAKE_SOURCE_DIR}/includes"
 			)
+# set(HEADER_FILES	malloc
+# 			includes/libmalloc.h
+# 			)
 
 #find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 #target_link_libraries (DSLR Eigen3::Eigen)
