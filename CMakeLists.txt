@@ -6,7 +6,7 @@
 #    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/24 12:24:40 by jpinyot          ###   ########.fr        #
+#    Updated: 2020/09/29 10:15:53 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ target_include_directories(malloc PRIVATE
 
 set(HEADER_FILES	
 			includes/libmalloc.h
+			includes/utils.h
 			)
 
 #find_package (Eigen3 3.3 REQUIRED NO_MODULE)

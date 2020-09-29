@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/24 12:51:49 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 10:16:49 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <sys/resource.h> /* getrlimit */
 # include <unistd.h> /* getpagesize */
 # include <pthread.h> /* bonus part */
+
+/* #include "util.h" /1* header for utils .c files *1/ */
 
 /* const size_t k_tiny_size = getpagesize(); /1* N *1/ */
 /* const size_t k_small_size = getpagesize() * 4; /1* M *1/ */
@@ -33,9 +35,9 @@ const size_t k_allocation_count = 100;
 
 enum	e_zones_type
 {
-	tiny,
-	small,
-	large
+	e_tiny,
+	e_small,
+	e_large
 };
 
 typedef struct	s_mem_block
@@ -43,19 +45,12 @@ typedef struct	s_mem_block
 	void			*addr;
 	size_t			size;
 	enum e_zones_type	zone_type;
+	/* char			zone_id; */
+	char			free;
 	struct s_mem_block	*next;
 	/* struct s_mem_block	*left; */
 	/* struct s_mem_block	*right; */
 }		t_mem_block;
-
-/* ypedef struct		s_block { */
-/* 	void			*addr; */
-/* 	size_t			size; */
-/* 	struct s_block	*next; */
-/* 	short			zone_type; */
-/* 	char			zone_id; */
-/* 	char			free; */
-/* }					t_block; */
 
 typedef struct	s_env
 {
