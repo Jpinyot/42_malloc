@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 10:16:49 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 12:43:13 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 /* const size_t k_tiny_max_size = k_tiny_size / 2; /1* n *1/ */
 /* const size_t k_small_max_size = k_small_size / 2; /1* m *1/ */
 
+#define MIN_ALLOCATION_PER_ZONE = 100;
+
 #define TINY_SIZE = getpagesize(); /* N */
 #define SMALL_SIZE = getpagesize() * 4; /* M */
 #define TINY_MAX_SIZE = TINY_SIZE / 2; /* n */
@@ -44,7 +46,7 @@ typedef struct	s_mem_block
 {
 	void			*addr;
 	size_t			size;
-	enum e_zones_type	zone_type;
+	enum e_zones_type	block_type;
 	/* char			zone_id; */
 	char			free;
 	struct s_mem_block	*next;
@@ -52,16 +54,27 @@ typedef struct	s_mem_block
 	/* struct s_mem_block	*right; */
 }		t_mem_block;
 
-typedef struct	s_env
+typedef struct s_mem_zone		//sort by addr
 {
-	t_mem_block		*tiny;
-	t_mem_block		*small;
-	t_mem_block		*large;
-	/* pthread_mutex_t	lock; */
-	/* int			lock_init; */
-}		t_env;
+	void			*first_block;
+	void			*current_block;
+	size_t			blocks_used;
+	enum e_zones_type	zone_type;
 
-struct s_env	*k_env;
+	struct s_zone		*next;
+}		t_mem_zone;
+
+/* typedef struct	s_zone */
+/* { */
+/* 	t_mem_block		*tiny; */
+/* 	t_mem_block		*small; */
+/* 	t_mem_block		*large; */
+
+/* 	/1* pthread_mutex_t	lock; *1/ */
+/* 	/1* int			lock_init; *1/ */
+/* }		t_zone; */
+
+void	*k_zone;
 
 void	free(void *ptr);
 void	*malloc(size_t size);

@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   zones_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/29 10:14:24 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 12:36:20 by jpinyot          ###   ########.fr       */
+/*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
+/*   Updated: 2020/09/29 12:43:25 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libmalloc.h"
+#include "utils.h"
 
-t_mem_block	*new_block(void** mem, const size_t* size, const enum e_zones_type* zone_type);
-void		free_block(void** mem, const enum e_zones_type* zone_type);
+t_mem_zone	*new_zone(const enum e_zones_type* zone_type)
+{
+	t_mem_zone*	zone = NULL;
 
-t_mem_zone	*new_zone(const enum e_zones_type* zone_type);
+	zone->first_block = NULL;
+	zone->current_block = NULL;
+	zone->blocks_used = 0;
+	zone->zone_type = *zone_type;
+
+	return (zone);
+}
