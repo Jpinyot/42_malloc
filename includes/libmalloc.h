@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 16:18:11 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 16:42:53 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 /* const size_t k_tiny_max_size = k_tiny_size / 2; /1* n *1/ */
 /* const size_t k_small_max_size = k_small_size / 2; /1* m *1/ */
 
-#define MIN_ALLOCATION_PER_ZONE = 100;
+#define MIN_ALLOCATION_PER_ZONE 100
 
-#define BLOCK_FREE  0;
-#define BLOCK_USED  1;
+#define BLOCK_FREE  0
+#define BLOCK_USED  1
 
 #define TINY_SIZE getpagesize() /* N */
 #define SMALL_SIZE getpagesize() * 4 /* M */

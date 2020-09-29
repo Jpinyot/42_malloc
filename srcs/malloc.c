@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 16:19:21 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 16:51:50 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,18 @@ static enum e_zones_type	get_zone_type_from_size(const size_t* size)
 		return e_large;
 }
 
-static t_mem_zone 	*get_zone_by_size(const size_t* size)
+static t_mem_zone 	*get_zone_from_size(const size_t* size)
 {
-	/* t_zones_manager	*mangr; */
 	t_mem_zone		*zone;
 	enum e_zones_type	zone_type;
 
-	/* mangr = (t_zones_manager*)k_zone_manager; */
 	zone_type = get_zone_type_from_size(size);
 	zone = (t_mem_zone*)k_zones;
-	while (zone != NULL && zone->zone_type != zone_type) {
+	while (zone != NULL && zone->zone_type != zone_type) { /* TODO: check for zone->next */
 		zone = (t_mem_zone*)zone->next;
 	}
 	if ( zone == NULL) {
-		/* init_zone_by_size(&zone, size); */
+		init_zone_from_size_type(&zone, &zone_type);
 		if (zone == NULL) 
 			return (NULL);
 	}
@@ -87,7 +85,7 @@ void	*malloc(size_t size)
 	t_mem_zone*	zone;
 	t_mem_block*	block;
 
-	if ((zone = get_zone_by_size(&size)) == NULL) /* TODO: pass zone as argument and delete return */ 
+	if ((zone = get_zone_from_size(&size)) == NULL) /* TODO: pass zone as argument and delete return */ 
 		return (NULL);
 	if ((block = get_block(&zone, &size)) == NULL) /* TODO: pass block asargument and delete return */
 		return (NULL);
