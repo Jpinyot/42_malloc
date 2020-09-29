@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 16:51:50 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 17:12:23 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,26 @@ static t_mem_zone 	*get_zone_from_size(const size_t* size)
 	t_mem_zone		*zone;
 	enum e_zones_type	zone_type;
 
+	zone = k_zones;
 	zone_type = get_zone_type_from_size(size);
-	zone = (t_mem_zone*)k_zones;
-	while (zone != NULL && zone->zone_type != zone_type) { /* TODO: check for zone->next */
-		zone = (t_mem_zone*)zone->next;
+	/* while (zone != NULL && zone->next != NULL) { */
+	while (zone != NULL) {
+		if (zone->zone_type == zone_type &&
+			zone->blocks_used < MIN_ALLOCATION_PER_ZONE) {
+			break ;
+		}
+		zone = zone->next;
 	}
 	if ( zone == NULL) {
 		init_zone_from_size_type(&zone, &zone_type);
 		if (zone == NULL) 
 			return (NULL);
+		else if (k_zones == NULL)
+			k_zones = zone;
+		else {
+			zone->next = k_zones;
+			k_zones = zone;
+		}
 	}
 	return (zone);
 }

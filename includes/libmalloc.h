@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 16:42:53 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 17:10:27 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_mem_zone		//sort by addr
 	size_t			blocks_used;
 	enum e_zones_type	zone_type;
 
-	void			*next;
+	struct s_mem_zone	*next;
 	/* struct t_mem_zone	*next; */
 }		t_mem_zone;
 
@@ -87,8 +87,8 @@ typedef struct s_mem_zone		//sort by addr
 /* 	/1* int			lock_init; *1/ */
 /* }		t_zones_manager; */
 
-void	*k_zone_manager;
-void	*k_zones;
+/* void	*k_zone_manager; */
+t_mem_zone	*k_zones;
 
 void	free(void *ptr);
 void	*malloc(size_t size);
