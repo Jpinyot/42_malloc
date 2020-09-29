@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 12:43:13 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 12:48:28 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,19 @@ typedef struct s_mem_zone		//sort by addr
 	struct s_zone		*next;
 }		t_mem_zone;
 
-/* typedef struct	s_zone */
-/* { */
-/* 	t_mem_block		*tiny; */
-/* 	t_mem_block		*small; */
-/* 	t_mem_block		*large; */
+typedef struct	s_zones_manager
+{
+	void		*first_tiny_zone;
+	void		*first_small_zone;
 
-/* 	/1* pthread_mutex_t	lock; *1/ */
-/* 	/1* int			lock_init; *1/ */
-/* }		t_zone; */
+	void		*large_zone;
+
+	void		*current_tiny_zone;
+	void		*current_small_zone;
+
+	/* pthread_mutex_t	lock; */
+	/* int			lock_init; */
+}		t_zones_manager;
 
 void	*k_zone;
 
