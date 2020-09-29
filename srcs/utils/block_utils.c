@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 12:41:34 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 15:42:06 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_mem_block	*new_block(void** mem, const size_t* size, const enum e_zones_type* 
 	t_mem_block* block = (t_mem_block *)*mem;
 
 	block->addr = NULL;
-	block->free = 1;
+	block->free = BLOCK_FREE;
 	block->next = NULL;
 	block->size = *(size);
 	block->block_type = *(zone_type);
@@ -30,12 +30,20 @@ void		free_block(void** mem, const enum e_zones_type* zone_type)
 	t_mem_block* block = (t_mem_block *)*mem;
 
 	block->addr = NULL;
-	block->free = 0;
+	block->free = BLOCK_FREE;
 	block->next = NULL;
 	block->size = 0;
 	block->block_type = *(zone_type);
 }
 
+void		update_block(t_mem_block** block, const size_t* size)
+{
+	t_mem_block	*curr_bock;
+
+	curr_bock = *block;
+	curr_bock->size = *size;
+	curr_bock->free = BLOCK_USED;
+}
 /* void		add_block(void*** mem, t_mem_block** block_mem) /1* TODO: need to check if enough space?? *1/ */
 /* { */
 /* 	t_mem_block** block_arr = (t_mem_block**)*mem; */

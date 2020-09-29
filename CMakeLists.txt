@@ -6,7 +6,7 @@
 #    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/29 10:15:53 by jpinyot          ###   ########.fr        #
+#    Updated: 2020/09/29 16:14:21 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(		malloc
 			srcs/test_main.c
 			srcs/utils/block_utils.c
+			srcs/utils/zones_utils.h
+			srcs/malloc.c
 			)
 
 target_include_directories(malloc PRIVATE 

@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 12:48:28 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 16:18:11 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,20 @@
 
 #define MIN_ALLOCATION_PER_ZONE = 100;
 
-#define TINY_SIZE = getpagesize(); /* N */
-#define SMALL_SIZE = getpagesize() * 4; /* M */
-#define TINY_MAX_SIZE = TINY_SIZE / 2; /* n */
-#define SMALL_MAX_SIZE = SMALL_SIZE / 2; /* m */
+#define BLOCK_FREE  0;
+#define BLOCK_USED  1;
 
-const size_t k_allocation_count = 100;
+#define TINY_SIZE getpagesize() /* N */
+#define SMALL_SIZE getpagesize() * 4 /* M */
+#define TINY_MAX_SIZE  (TINY_SIZE / 2) /* n */
+#define SMALL_MAX_SIZE  (SMALL_SIZE * 2) /* m */
+
+/* #define TINY_SIZE 10 /1* N *1/ */
+/* #define SMALL_SIZE 20 /1* M *1/ */
+/* #define TINY_MAX_SIZE 10 / 2 /1* n *1/ */
+/* #define SMALL_MAX_SIZE  20 / 2 /1* m *1/ */
+
+/* const size_t k_allocation_count = 100; */
 
 enum	e_zones_type
 {
@@ -61,24 +69,26 @@ typedef struct s_mem_zone		//sort by addr
 	size_t			blocks_used;
 	enum e_zones_type	zone_type;
 
-	struct s_zone		*next;
+	void			*next;
+	/* struct t_mem_zone	*next; */
 }		t_mem_zone;
 
-typedef struct	s_zones_manager
-{
-	void		*first_tiny_zone;
-	void		*first_small_zone;
+/* typedef struct	s_zones_manager */
+/* { */
+/* 	void		*first_tiny_zone; */
+/* 	void		*first_small_zone; */
 
-	void		*large_zone;
+/* 	void		*large_zone; */
 
-	void		*current_tiny_zone;
-	void		*current_small_zone;
+/* 	void		*current_tiny_zone; */
+/* 	void		*current_small_zone; */
 
-	/* pthread_mutex_t	lock; */
-	/* int			lock_init; */
-}		t_zones_manager;
+/* 	/1* pthread_mutex_t	lock; *1/ */
+/* 	/1* int			lock_init; *1/ */
+/* }		t_zones_manager; */
 
-void	*k_zone;
+void	*k_zone_manager;
+void	*k_zones;
 
 void	free(void *ptr);
 void	*malloc(size_t size);
