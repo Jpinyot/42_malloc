@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 15:42:06 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 18:12:12 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_mem_block	*new_block(void** mem, const size_t* size, const enum e_zones_type* 
 	t_mem_block* block = (t_mem_block *)*mem;
 
 	block->addr = NULL;
-	block->free = BLOCK_FREE;
+	block->free = BLOCK_USED;
 	block->next = NULL;
 	block->size = *(size);
 	block->block_type = *(zone_type);
@@ -43,6 +43,23 @@ void		update_block(t_mem_block** block, const size_t* size)
 	curr_bock = *block;
 	curr_bock->size = *size;
 	curr_bock->free = BLOCK_USED;
+}
+
+t_mem_block	*add_block_to_zone(t_mem_zone** zone, const size_t* size, const enum e_zones_type* zone_type)
+{
+	t_mem_block	*block;
+	t_mem_block	*new_block;
+	t_mem_zone	*curr_zone;
+
+	block = curr_zone->current_block; /* TODO: Need to set block with new varables */
+	/* block = new_block(&block, size, zone_type); */
+
+	new_block = block + sizeof(t_mem_block) + block->size; /* TODO: setting incorrect size */
+	/* TODO: Need something new_block?? */
+	block->next = new_block;
+	curr_zone->current_block = new_block;
+	curr_zone->blocks_used += 1;
+	return (block);
 }
 /* void		add_block(void*** mem, t_mem_block** block_mem) /1* TODO: need to check if enough space?? *1/ */
 /* { */

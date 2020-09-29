@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zones_utils.h                                      :+:      :+:    :+:   */
+/*   zones_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 16:51:22 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 17:58:16 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ void	new_zone(t_mem_zone** zone, const enum e_zones_type* zone_type)
 {
 	t_mem_zone*	curr_zone = *zone;
 
-	curr_zone->first_block = NULL;
-	curr_zone->current_block = NULL;
+	/* curr_zone->first_block = NULL; */
+	/* curr_zone->current_block = NULL; */
 	curr_zone->blocks_used = 0;
 	curr_zone->zone_type = *zone_type;
+
+	curr_zone->first_block = curr_zone + sizeof(t_mem_zone);
+	curr_zone->current_block = curr_zone->first_block;
 }
 
 void		init_zone_from_size_type(t_mem_zone** zone, const enum e_zones_type* zone_type)

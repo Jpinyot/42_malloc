@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 17:12:23 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 17:34:16 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,47 +55,25 @@ static t_mem_zone 	*get_zone_from_size(const size_t* size)
 static t_mem_block	*get_block(t_mem_zone** zone, const size_t* size)
 {
 	t_mem_block	*block;
+	t_mem_zone	*curr_zone;
 
-	block = NULL;
-	while (block == NULL)
-	{
-		/* ` */
+	curr_zone = *zone;
+	if (curr_zone->first_block == NULL) {
+		
 	}
+	/* block = NULL; */
+	/* while (block == NULL) */
+	/* { */
+	/* } */
 	return(block);
 }
-
-/* t_block	*get_block(t_block *block, t_zone *first_zone, size_t size) */
-/* { */
-/* 	t_zone	*current_zone; */
-
-/* 	current_zone = first_zone; */
-/* 	while (block == NULL) */
-/* 	{ */
-/* 		current_zone = get_right_zone(current_zone, size); */
-/* 		if (current_zone == NULL) */
-/* 		{ */
-/* 			current_zone = add_new_zone(first_zone, size); */
-/* 			if (current_zone == NULL) */
-/* 				return (NULL); */
-/* 			init_one_block(current_zone, current_zone->first_block, size); */
-/* 		} */
-/* 		block = get_reusable_block(current_zone->first_block, size); */
-/* 		if (block == NULL) */
-/* 		{ */
-/* 			if (is_space_available_zone(current_zone, size) == TRUE) */
-/* 				block = add_block_to_zone(current_zone, size); */
-/* 			else */
-/* 				current_zone = current_zone->next_zone; */
-/* 		} */
-/* 	} */
-/* 	return (block); */
-/* } */
 
 void	*malloc(size_t size)
 {
 	t_mem_zone*	zone;
 	t_mem_block*	block;
 
+	/* write(1, "#", 1); */
 	if ((zone = get_zone_from_size(&size)) == NULL) /* TODO: pass zone as argument and delete return */ 
 		return (NULL);
 	if ((block = get_block(&zone, &size)) == NULL) /* TODO: pass block asargument and delete return */

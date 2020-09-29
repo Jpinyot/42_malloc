@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 17:10:27 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 17:57:38 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct s_mem_zone		//sort by addr
 {
 	void			*first_block;
 	void			*current_block;
+	/* t_mem_block		*first_block; */
+	/* t_mem_block		*current_block; */
 	size_t			blocks_used;
 	enum e_zones_type	zone_type;
 
