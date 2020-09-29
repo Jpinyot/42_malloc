@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 17:58:16 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 18:27:54 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	get_zone_size_by_zone_type(const enum e_zones_type* zone_type)
 }
 
 void	new_zone(t_mem_zone** zone, const enum e_zones_type* zone_type)
-{
+{ /* TODO: need better implementation of block creation */
 	t_mem_zone*	curr_zone = *zone;
 
 	/* curr_zone->first_block = NULL; */

@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 17:34:16 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 18:24:38 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,16 @@ static t_mem_zone 	*get_zone_from_size(const size_t* size)
 }
 
 static t_mem_block	*get_block(t_mem_zone** zone, const size_t* size)
+/* static t_mem_block	*get_block(t_mem_zone** zone, const size_t* size, const enum e_zones_type* block_type) */
 {
 	t_mem_block	*block;
 	t_mem_zone	*curr_zone;
 
 	curr_zone = *zone;
-	if (curr_zone->first_block == NULL) {
+	block = add_block_to_zone(zone,size,&curr_zone->zone_type);
+	/* if (curr_zone->first_block == NULL) { */
 		
-	}
+	/* } */
 	/* block = NULL; */
 	/* while (block == NULL) */
 	/* { */
@@ -78,7 +80,7 @@ void	*malloc(size_t size)
 		return (NULL);
 	if ((block = get_block(&zone, &size)) == NULL) /* TODO: pass block asargument and delete return */
 		return (NULL);
-	update_block(&block, &size);
+	/* update_block(&block, &size); */
 	/* update_zone(&zone); */
 	return (block->addr);
 }

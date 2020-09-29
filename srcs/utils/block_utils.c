@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 18:12:12 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/29 18:29:07 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ t_mem_block	*add_block_to_zone(t_mem_zone** zone, const size_t* size, const enum
 
 	new_block = block + sizeof(t_mem_block) + block->size; /* TODO: setting incorrect size */
 	/* TODO: Need something new_block?? */
+	write(1,"$", 1);
+	block->size = 10;
+	write(1,"#", 1);
 	block->next = new_block;
 	curr_zone->current_block = new_block;
 	curr_zone->blocks_used += 1;
