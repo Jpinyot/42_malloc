@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 11:36:00 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 12:20:03 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static t_mem_block	*get_block(t_mem_zone** zone, const size_t* size)
 
 	block = NULL;
 	curr_zone = *zone;
-	if (curr_zone->blocks_free)
-	{
-		block = get_freed_block(zone, size, &curr_zone->zone_type);
-	}
-	else if (curr_zone->blocks_used < MIN_ALLOCATION_PER_ZONE)
+	if (curr_zone->blocks_used < MIN_ALLOCATION_PER_ZONE)
 	{
 		block = add_block_to_zone(zone, size, &curr_zone->zone_type);
+	}
+	else if (curr_zone->blocks_free)
+	{ /* TODO: use freed bloks when zone is full */
+		block = get_freed_block(zone, size, &curr_zone->zone_type);
 	}
 	return(block);
 }
