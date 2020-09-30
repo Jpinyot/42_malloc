@@ -6,12 +6,15 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 12:20:03 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 12:45:33 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmalloc.h"
 #include "utils.h"
+
+
+/* TODO: delete block struct?? what it comprts */
 
 static enum e_zones_type	get_zone_type_from_size(const size_t* size)
 {
