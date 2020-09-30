@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 17:57:38 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 11:17:25 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct	s_mem_block
 	/* struct s_mem_block	*right; */
 }		t_mem_block;
 
+/* TODO: need a way to reuse freed blocks 
+ * moving freed block to first_block of the zones*/
 typedef struct s_mem_zone		//sort by addr
 {
 	void			*first_block;
@@ -69,27 +71,13 @@ typedef struct s_mem_zone		//sort by addr
 	/* t_mem_block		*first_block; */
 	/* t_mem_block		*current_block; */
 	size_t			blocks_used;
+	size_t			blocks_free; /* TODO: need implementation */
 	enum e_zones_type	zone_type;
 
 	struct s_mem_zone	*next;
 	/* struct t_mem_zone	*next; */
 }		t_mem_zone;
 
-/* typedef struct	s_zones_manager */
-/* { */
-/* 	void		*first_tiny_zone; */
-/* 	void		*first_small_zone; */
-
-/* 	void		*large_zone; */
-
-/* 	void		*current_tiny_zone; */
-/* 	void		*current_small_zone; */
-
-/* 	/1* pthread_mutex_t	lock; *1/ */
-/* 	/1* int			lock_init; *1/ */
-/* }		t_zones_manager; */
-
-/* void	*k_zone_manager; */
 t_mem_zone	*k_zones;
 
 void	free(void *ptr);
@@ -99,8 +87,8 @@ void	*realloc(void *ptr, size_t size);
 void	show_alloc_mem();
 
 /* UTILS */
-t_mem_block	*new_block();
-void		delete_block();
-void		delete_next_block();
+/* t_mem_block	*new_block(); */
+/* void		delete_block(); */
+/* void		delete_next_block(); */
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 10:19:50 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 11:36:00 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static t_mem_zone 	*get_zone_from_size(const size_t* size)
 	/* while (zone != NULL && zone->next != NULL) { */
 	while (zone != NULL) {
 		if (zone->zone_type == zone_type &&
-			zone->blocks_used < MIN_ALLOCATION_PER_ZONE) {
+			(zone->blocks_used < MIN_ALLOCATION_PER_ZONE ||
+			 zone->blocks_free != 0)) {
 			break ;
 		}
 		zone = zone->next;
@@ -53,23 +54,20 @@ static t_mem_zone 	*get_zone_from_size(const size_t* size)
 }
 
 static t_mem_block	*get_block(t_mem_zone** zone, const size_t* size)
-/* static t_mem_block	*get_block(t_mem_zone** zone, const size_t* size, const enum e_zones_type* block_type) */
 {
 	t_mem_block	*block;
 	t_mem_zone	*curr_zone;
 
+	block = NULL;
 	curr_zone = *zone;
-	block = add_block_to_zone(zone,size,&curr_zone->zone_type);
-	/* if (curr_zone->first_block == NULL) { */
-		
-	/* } */
-	/* block = NULL; */
-	/* while (block == NULL) */
-	/* { */
-	/* } */
-	/* return(block); */
-	int oli = ((t_mem_block*)curr_zone->current_block)->size;
-	write(1, &oli, 1);
+	if (curr_zone->blocks_free)
+	{
+		block = get_freed_block(zone, size, &curr_zone->zone_type);
+	}
+	else if (curr_zone->blocks_used < MIN_ALLOCATION_PER_ZONE)
+	{
+		block = add_block_to_zone(zone, size, &curr_zone->zone_type);
+	}
 	return(block);
 }
 
@@ -85,6 +83,5 @@ void	*malloc(size_t size)
 		return (NULL);
 	/* update_block(&block, &size); */
 	/* update_zone(&zone); */
-	/* return(((t_mem_block*)zone->current_block)->addr); */
 	return (block->addr);
 }

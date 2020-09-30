@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 10:04:12 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 10:19:09 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 10:24:18 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 
 int	main(void)
 {
-	int int_test = 10;
+	/* int int_test = 10; */
 	/* void* test = malloc(sizeof(int)); */
+	write(1, "1", 1);
 	int* test = malloc(sizeof(int));
+	write(1, "2", 1);
 	int* test2 = malloc(sizeof(int));
-	*test = int_test;
+	write(1, "3", 1);
+	*test = 11;
 	*test2 = 21;
-	printf("%i\n%i\n", *test, *test2);
+	write(1, "<", 1);
+	printf("%i---%i", *test, *test2);
+	write(1, ">", 1);
 	return (0);
 }
