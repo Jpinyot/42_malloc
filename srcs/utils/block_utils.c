@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 18:29:07 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 10:15:58 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ t_mem_block	*new_block(void** mem, const size_t* size, const enum e_zones_type* 
 {
 	t_mem_block* block = (t_mem_block *)*mem;
 
-	block->addr = NULL;
+	block->addr = &mem + sizeof(t_mem_block);
+	/* block->addr = NULL; */
 	block->free = BLOCK_USED;
 	block->next = NULL;
-	block->size = *(size);
+	block->size = 10;
+	/* block->size = *(size); */
 	block->block_type = *(zone_type);
 
 	return (block);
@@ -48,19 +50,27 @@ void		update_block(t_mem_block** block, const size_t* size)
 t_mem_block	*add_block_to_zone(t_mem_zone** zone, const size_t* size, const enum e_zones_type* zone_type)
 {
 	t_mem_block	*block;
-	t_mem_block	*new_block;
+	t_mem_block	*next_block;
 	t_mem_zone	*curr_zone;
+	void*		new_block_mem;
 
+
+	curr_zone = *zone;
 	block = curr_zone->current_block; /* TODO: Need to set block with new varables */
-	/* block = new_block(&block, size, zone_type); */
+	/* block = next_block(&block, size, zone_type); */
 
-	new_block = block + sizeof(t_mem_block) + block->size; /* TODO: setting incorrect size */
-	/* TODO: Need something new_block?? */
-	write(1,"$", 1);
+	/* next_block = block + sizeof(t_mem_block) + block->size; /1* TODO: setting incorrect size *1/ */
+	if (*zone_type == e_tiny)
+		new_block_mem = block +sizeof(t_mem_block) + TINY_SIZE;
+	else if (*zone_type == e_small)
+		new_block_mem = block +sizeof(t_mem_block) + SMALL_SIZE;
+	next_block = new_block(&new_block_mem, size, zone_type);
+	/* TODO: Need something next_block?? */
+	/* write(1,"$", 1); */
 	block->size = 10;
-	write(1,"#", 1);
-	block->next = new_block;
-	curr_zone->current_block = new_block;
+	/* write(1,"#", 1); */
+	block->next = next_block;
+	curr_zone->current_block = next_block;
 	curr_zone->blocks_used += 1;
 	return (block);
 }

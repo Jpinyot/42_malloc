@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/29 18:24:38 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 10:19:50 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ static t_mem_block	*get_block(t_mem_zone** zone, const size_t* size)
 	/* while (block == NULL) */
 	/* { */
 	/* } */
+	/* return(block); */
+	int oli = ((t_mem_block*)curr_zone->current_block)->size;
+	write(1, &oli, 1);
 	return(block);
 }
 
@@ -82,5 +85,6 @@ void	*malloc(size_t size)
 		return (NULL);
 	/* update_block(&block, &size); */
 	/* update_zone(&zone); */
+	/* return(((t_mem_block*)zone->current_block)->addr); */
 	return (block->addr);
 }
