@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 11:48:49 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 12:35:29 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,16 @@ static int	get_zone_size_by_zone_type(const enum e_zones_type* zone_type)
 		return 0;
 }
 
-void	new_zone(t_mem_zone** zone, const enum e_zones_type* zone_type)
+void	new_zone(t_mem_zone* zone, const enum e_zones_type* zone_type)
 { /* TODO: need better implementation of block creation */
-	t_mem_zone*	curr_zone = *zone;
 
-	/* curr_zone->first_block = NULL; */
-	/* curr_zone->current_block = NULL; */
-	curr_zone->blocks_used = 0;
-	curr_zone->zone_type = *zone_type;
+	zone->blocks_used = 0;
+	zone->zone_type = *zone_type;
 
-	void* block_mem = curr_zone + sizeof(t_mem_zone);
+	void* block_mem = zone + sizeof(t_mem_zone);
 	size_t size = TINY_SIZE;
-	curr_zone->first_block = new_block(&block_mem, &size, zone_type);
-	/* curr_zone->first_block = curr_zone + sizeof(t_mem_zone); */
-	curr_zone->current_block = curr_zone->first_block;
+	zone->first_block = new_block(&block_mem, &size, zone_type);
+	zone->current_block = zone->first_block;
 }
 
 void		init_zone_from_size_type(t_mem_zone** zone, const enum e_zones_type* zone_type)

@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 11:45:24 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 12:31:50 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_mem_block	*new_block(void** mem, const size_t* size, const enum e_zones_type* 
 {
 	t_mem_block* block = (t_mem_block *)*mem;
 
-	block->addr = &mem + sizeof(t_mem_block);
+	block->addr = block + sizeof(t_mem_block);
+	/* printf("%p---%p\n", block, block->addr); */
 	block->free = BLOCK_USED;
 	block->next = NULL;
 	block->size = *(size);
@@ -45,17 +46,15 @@ void		free_block(void** mem, const enum e_zones_type* zone_type)
 /* 	curr_bock->free = BLOCK_USED; */
 /* } */
 
-t_mem_block	*add_block_to_zone(t_mem_zone** zone, const size_t* size, const enum e_zones_type* zone_type)
+t_mem_block	*add_block_to_zone(t_mem_zone* zone, const size_t* size, const enum e_zones_type* zone_type)
 { /* TODO: when zone->blocks_used == MIN_ALLOCATION_PER_ZONE */ 
 	t_mem_block	*block;
 	t_mem_block	*next_block;
-	t_mem_zone	*curr_zone;
 	void*		new_block_mem;
 
 
-	curr_zone = *zone;
-	block = curr_zone->current_block; /* TODO: Need to set block with new varables */
-	if (curr_zone->blocks_used < MIN_ALLOCATION_PER_ZONE - 1)
+	block = zone->current_block; /* TODO: Need to set block with new varables */
+	if (zone->blocks_used < MIN_ALLOCATION_PER_ZONE - 1)
 	{
 		if (*zone_type == e_tiny)
 			new_block_mem = block + sizeof(t_mem_block) + TINY_SIZE;
@@ -65,34 +64,32 @@ t_mem_block	*add_block_to_zone(t_mem_zone** zone, const size_t* size, const enum
 		/* TODO: Need something next_block?? */
 		/* block->size = 10; */
 		block->next = next_block;
-		curr_zone->current_block = next_block;
+		zone->current_block = next_block;
 	}
-	if (curr_zone->blocks_used == MIN_ALLOCATION_PER_ZONE)
+	if (zone->blocks_used == MIN_ALLOCATION_PER_ZONE)
 	{
 /* TODO: Need to do somthing when last malloc? */
 	}
-	curr_zone->blocks_used += 1;
+	zone->blocks_used += 1;
 	return (block);
 	/* return (curr_zone->current_block); */
 }
 
-t_mem_block	*get_freed_block(t_mem_zone** zone, const size_t* size, const enum e_zones_type* zone_type)
+t_mem_block	*get_freed_block(t_mem_zone* zone, const size_t* size, const enum e_zones_type* zone_type)
 { /* TODO: when zone is full, use current as beguinning of freed objects */
 	t_mem_block	*block;
-	t_mem_zone	*curr_zone;
 
-	curr_zone = *zone;
-	block = curr_zone->current_block;
+	block = zone->current_block;
 	if (block)
 	{
-		curr_zone->blocks_free -= 1;
-		if (curr_zone->blocks_free > 0) {
-			curr_zone->current_block = curr_zone->first_block;
-			while (curr_zone->current_block && ((t_mem_block*)curr_zone->current_block)->free == BLOCK_FREE)
-				curr_zone->current_block = ((t_mem_block*)curr_zone->current_block)->next;
+		zone->blocks_free -= 1;
+		if (zone->blocks_free > 0) {
+			zone->current_block = zone->first_block;
+			while (zone->current_block && ((t_mem_block*)zone->current_block)->free == BLOCK_FREE)
+				zone->current_block = ((t_mem_block*)zone->current_block)->next;
 		}
 		else
-			curr_zone->current_block = NULL;
+			zone->current_block = NULL;
 	}
 	return (block);
 }
