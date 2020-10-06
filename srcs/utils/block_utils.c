@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 12:23:02 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 11:31:01 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,17 @@ t_mem_block	*get_freed_block(t_mem_zone** zone, const size_t* size, const enum e
 	t_mem_zone	*curr_zone;
 
 	curr_zone = *zone;
-	block = curr_zone->first_block;
+	block = curr_zone->current_block;
 	if (block)
 	{
-		if (block->free == BLOCK_FREE) {
-			if (block->next) { /* TODO: check if necessary when there is just one block in zone */
-				curr_zone->first_block = block->next;
-				block->next = ((t_mem_block*)curr_zone->current_block)->next;
-				((t_mem_block*)curr_zone->current_block)->next = block;
-				curr_zone->current_block = block;
-			}
-			curr_zone->blocks_free -= 1;
+		curr_zone->blocks_free -= 1;
+		if (curr_zone->blocks_free > 0) {
+			curr_zone->current_block = curr_zone->first_block;
+			while (curr_zone->current_block && ((t_mem_block*)curr_zone->current_block)->free == BLOCK_FREE)
+				curr_zone->current_block = ((t_mem_block*)curr_zone->current_block)->next;
 		}
+		else
+			curr_zone->current_block = NULL;
 	}
 	return (block);
 }
