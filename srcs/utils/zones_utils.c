@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 09:54:28 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 11:48:49 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	get_zone_size_by_zone_type(const enum e_zones_type* zone_type)
 {
-	int zone_size;
-
 	if (*zone_type == e_tiny)
 		return sizeof(t_mem_zone) + (TINY_SIZE * MIN_ALLOCATION_PER_ZONE * sizeof(t_mem_block));
 	else if (*zone_type == e_small)

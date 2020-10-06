@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 11:31:01 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 11:45:24 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_mem_block	*add_block_to_zone(t_mem_zone** zone, const size_t* size, const enum
 	}
 	curr_zone->blocks_used += 1;
 	return (block);
+	/* return (curr_zone->current_block); */
 }
 
 t_mem_block	*get_freed_block(t_mem_zone** zone, const size_t* size, const enum e_zones_type* zone_type)
