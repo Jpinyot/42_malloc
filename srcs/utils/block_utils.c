@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 12:46:42 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 18:07:26 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,25 @@ void		free_block(void* mem, const enum e_zones_type zone_type)
 	block->block_type = zone_type;
 }
 
-t_mem_block	*add_block_to_zone(t_mem_zone* zone, const size_t size, const enum e_zones_type zone_type)
+t_mem_block	*add_block_to_zone(t_mem_zone** mem, const size_t size, const enum e_zones_type zone_type)
 { /* TODO: when zone->blocks_used == MIN_ALLOCATION_PER_ZONE */ 
 	t_mem_block	*block;
 	t_mem_block	*next_block;
 	void*		new_block_mem;
 
+	t_mem_zone* zone = *mem;
 
-	block = zone->current_block; /* TODO: Need to set block with new varables */
+
+	if ((block = zone->current_block) == NULL) { /* TODO: Need to set block with new varables */
+		return (NULL);
+	}
 	if (zone->blocks_used < MIN_ALLOCATION_PER_ZONE - 1)
 	{
 		if (zone_type == e_tiny)
 			new_block_mem = block + sizeof(t_mem_block) + TINY_SIZE;
 		else if (zone_type == e_small)
 			new_block_mem = block + sizeof(t_mem_block) + SMALL_SIZE;
-		next_block = new_block(&new_block_mem, size, zone_type);
+		next_block = new_block(new_block_mem, size, zone_type);
 		/* TODO: Need something next_block?? */
 		/* block->size = 10; */
 		block->next = next_block;
