@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 10:04:12 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 18:14:54 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 18:29:07 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 		/* 1320926 */
 		test = malloc(sizeof(int));
 		*test = i;
-		printf("%i---%p\n", *test, test);
+		printf("%-3i---%p\n", *test, test);
 	}
 	return (0);
 }

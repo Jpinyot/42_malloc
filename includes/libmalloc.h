@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 11:17:25 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 18:50:26 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 /* const size_t k_tiny_max_size = k_tiny_size / 2; /1* n *1/ */
 /* const size_t k_small_max_size = k_small_size / 2; /1* m *1/ */
 
-#define MIN_ALLOCATION_PER_ZONE 100
+#define ALLOCATION_PER_ZONE 10
 
 #define BLOCK_FREE  0
 #define BLOCK_USED  1
@@ -70,6 +70,7 @@ typedef struct s_mem_zone		//sort by addr
 	void			*current_block;
 	/* t_mem_block		*first_block; */
 	/* t_mem_block		*current_block; */
+	size_t			blocks_created;
 	size_t			blocks_used;
 	size_t			blocks_free; /* TODO: need implementation */
 	enum e_zones_type	zone_type;

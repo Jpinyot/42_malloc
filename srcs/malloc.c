@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 18:07:56 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 18:53:39 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ static t_mem_zone 	*get_zone_from_size(const size_t size)
 	/* while (zone != NULL && zone->next != NULL) { */
 	while (zone != NULL) {
 		if (zone->zone_type == zone_type &&
-			(zone->blocks_used < MIN_ALLOCATION_PER_ZONE ||
+			(zone->blocks_used < ALLOCATION_PER_ZONE ||
 			 zone->blocks_free != 0)) {
 			break ;
 		}
 		zone = zone->next;
 	}
 	if ( zone == NULL) {
+		printf("---------------------------\n");
 		init_zone_from_size_type(&zone, zone_type);
 		if (zone == NULL) 
 		{
@@ -63,14 +64,16 @@ static t_mem_block	*get_block(t_mem_zone* zone, const size_t size)
 	t_mem_block	*block;
 
 	block = NULL;
-	if (zone->blocks_used < MIN_ALLOCATION_PER_ZONE)
+	if (zone->blocks_used < ALLOCATION_PER_ZONE)
 	{
-		block = add_block_to_zone(&zone, size, zone->zone_type);
+		if ((block = add_block_to_zone(zone, size, zone->zone_type)) == NULL)
+			return (NULL);
 	}
 	else if (zone->blocks_free)
 	{ /* TODO: use freed bloks when zone is full */
 		/* write(1, "$", 1); */
-		block = get_freed_block(zone, size, zone->zone_type);
+		if ((block = get_freed_block(zone, size, zone->zone_type)) == NULL)
+			return (NULL);
 	}
 	return(block);
 }
@@ -80,12 +83,13 @@ void	*malloc(size_t size)
 	t_mem_zone*	zone;
 	t_mem_block*	block;
 
-	if ((zone = get_zone_from_size(size)) == NULL) /* TODO: pass zone as argument and delete return */ 
+	if ((zone = get_zone_from_size(size)) == NULL) /* TODO: pass zone as argument and delete return?? */ 
 		return (NULL);
-	if ((block = get_block(zone, size)) == NULL) /* TODO: pass block asargument and delete return */
+	if ((block = get_block(zone, size)) == NULL) /* TODO: pass block asargument and delete return?? */
 		return (NULL);
+	/* TODO: function for update??? */
+	block->size = size;
+	zone->blocks_used += 1;
 
-	/* update_block(&block, &size); */
-	/* update_zone(&zone); */
 	return (block->addr);
 }
