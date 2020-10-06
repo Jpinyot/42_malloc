@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 12:33:38 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 12:55:45 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ static t_mem_zone 	*get_zone_from_size(const size_t size)
 		zone = zone->next;
 	}
 	if ( zone == NULL) {
-		init_zone_from_size_type(&zone, &zone_type);
+		init_zone_from_size_type(&zone, zone_type);
 		if (zone == NULL) 
+		{
 			return (NULL);
+		}
 		else if (k_zones == NULL)
 			k_zones = zone;
 		else {
@@ -56,20 +58,21 @@ static t_mem_zone 	*get_zone_from_size(const size_t size)
 	return (zone);
 }
 
-static t_mem_block	*get_block(t_mem_zone* zone, const size_t* size)
+static t_mem_block	*get_block(t_mem_zone* zone, const size_t size)
 {
 	t_mem_block	*block;
 
 	block = NULL;
 	if (zone->blocks_used < MIN_ALLOCATION_PER_ZONE)
 	{
+	write(1, "#", 1);
 		/* write(1, "#", 1); */
-		block = add_block_to_zone(zone, size, &zone->zone_type);
+		block = add_block_to_zone(zone, size, zone->zone_type);
 	}
 	else if (zone->blocks_free)
 	{ /* TODO: use freed bloks when zone is full */
 		/* write(1, "$", 1); */
-		block = get_freed_block(zone, size, &zone->zone_type);
+		block = get_freed_block(zone, size, zone->zone_type);
 	}
 	return(block);
 }
@@ -81,10 +84,9 @@ void	*malloc(size_t size)
 
 	if ((zone = get_zone_from_size(size)) == NULL) /* TODO: pass zone as argument and delete return */ 
 		return (NULL);
-	if ((block = get_block(zone, &size)) == NULL) /* TODO: pass block asargument and delete return */
+	if ((block = get_block(zone, size)) == NULL) /* TODO: pass block asargument and delete return */
 		return (NULL);
 
-	/* write(1, "#", 1); */
 	/* update_block(&block, &size); */
 	/* update_zone(&zone); */
 	return (block->addr);
