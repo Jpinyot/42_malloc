@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:10 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 10:56:54 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 11:07:34 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	ft_free(void *ptr)
 		}
 		zone = block->zone;
 		zone->blocks_used -= 1;
+		block->free = BLOCK_FREE;
 		if (zone->blocks_created == ALLOCATION_PER_ZONE) {
 			set_current_as_free_block(zone);
 		}
-		block->free = BLOCK_FREE;
 
 	}
 }

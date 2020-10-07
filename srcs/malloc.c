@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 11:01:31 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 11:13:40 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,6 @@ static t_mem_block	*get_block(t_mem_zone* zone, const size_t size)
 		if ((block = add_block_to_zone(zone, size, zone->zone_type)) == NULL)
 			return (NULL);
 	}
-	/* zone->blocks_used ++; */
-	/* else if (zone->blocks_free) */
-	/* { /1* TODO: use freed bloks when zone is full *1/ */
-	/* 	/1* write(1, "$", 1); *1/ */
-	/* 	if ((block = get_freed_block(zone, size, zone->zone_type)) == NULL) */
-	/* 		return (NULL); */
-	/* } */
 	return(block);
 }
 
@@ -90,11 +83,8 @@ void	*ft_malloc(size_t size)
 	if ((block = get_block(zone, size)) == NULL) /* TODO: pass block asargument and delete return?? */
 		return (NULL);
 	/* TODO: function for update??? */
-	printf("<%i>\n", block->free);
 	block->size = size;
-	block->free = BLOCK_USED;
-	/* printf("<%zu--%zu>\n", zone->blocks_used, zone->blocks_created); */
-	/* printf("<%p>\n", block); */
+	block->free = BLOCK_USED; /* TODO: NEED TO BETTER THING WHEN MARK BLOCK AS FREE!!! */
 	zone->blocks_used += 1;
 
 	return (block->addr);

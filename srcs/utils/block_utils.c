@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 11:03:31 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 11:13:58 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_mem_block	*add_block_to_zone(t_mem_zone* zone, const size_t size, const enum e
 		return (NULL);
 	}
 	if (block->free == BLOCK_USED) {
-		write(1, "@", 1);
+		/* write(1, "$", 1); */
 	}
 	if (zone->blocks_created < ALLOCATION_PER_ZONE)
 	{
@@ -67,30 +67,9 @@ t_mem_block	*add_block_to_zone(t_mem_zone* zone, const size_t size, const enum e
 	}
 	else if (zone->blocks_created == ALLOCATION_PER_ZONE && zone->blocks_used < ALLOCATION_PER_ZONE)
 	{
-		write(1, "@", 1);
+		block->free = BLOCK_USED; /* TODO: NEED TO BETTER THING WHEN MARK BLOCK AS FREE!!! */
 		set_current_as_free_block(zone);
 	}
 	return (block);
 	/* return (curr_zone->current_block); */
 }
-
-/* t_mem_block	*get_freed_block(t_mem_zone* zone, const size_t size, const enum e_zones_type zone_type) */
-/* { /1* TODO: when zone is full, use current as beguinning of freed objects *1/ */
-/* 	t_mem_block	*block; */
-
-/* 	block = zone->current_block; */
-/* 	if (block) */
-/* 	{ */
-/* 		zone->blocks_free -= 1; */
-/* 		/1* zone->blocks_created += 1; *1/ /1* TODO: how to set??? *1/ */
-/* 		if (zone->blocks_free > 0) */
-/* 		{ */
-/* 			zone->current_block = zone->first_block; */
-/* 			while (zone->current_block && ((t_mem_block*)zone->current_block)->free == BLOCK_FREE) */
-/* 				zone->current_block = ((t_mem_block*)zone->current_block)->next; */
-/* 		} */
-/* 		else */
-/* 			zone->current_block = NULL; */
-/* 	} */
-/* 	return (block); */
-/* } */

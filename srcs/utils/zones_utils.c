@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 10:57:22 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 11:08:07 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	set_current_as_free_block(t_mem_zone* zone)
 		{
 		       if (block->free == BLOCK_FREE)
 		       {
-				write(1, "#", 1);
 			       zone->current_block = block;
 			       break ;
 		       }
