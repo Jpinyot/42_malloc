@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:27:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 18:50:26 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 10:06:33 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct	s_mem_block
 	/* char			zone_id; */
 	char			free;
 	struct s_mem_block	*next;
+	struct s_mem_zone	*zone;
 	/* struct s_mem_block	*left; */
 	/* struct s_mem_block	*right; */
 }		t_mem_block;
@@ -72,7 +73,7 @@ typedef struct s_mem_zone		//sort by addr
 	/* t_mem_block		*current_block; */
 	size_t			blocks_created;
 	size_t			blocks_used;
-	size_t			blocks_free; /* TODO: need implementation */
+	/* size_t			blocks_free; /1* TODO: need implementation *1/ */
 	enum e_zones_type	zone_type;
 
 	struct s_mem_zone	*next;
@@ -81,9 +82,9 @@ typedef struct s_mem_zone		//sort by addr
 
 t_mem_zone	*k_zones;
 
-void	free(void *ptr);
-void	*malloc(size_t size);
-void	*realloc(void *ptr, size_t size);
+void	ft_free(void *ptr);
+void	*ft_malloc(size_t size);
+void	*ft_realloc(void *ptr, size_t size);
 
 void	show_alloc_mem();
 

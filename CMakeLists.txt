@@ -6,7 +6,7 @@
 #    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/29 16:53:23 by jpinyot          ###   ########.fr        #
+#    Updated: 2020/10/07 10:08:17 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ add_executable(		malloc
 			srcs/utils/block_utils.c
 			srcs/utils/zones_utils.c
 			srcs/malloc.c
+			srcs/free.c
 			)
 
 target_include_directories(malloc PRIVATE 

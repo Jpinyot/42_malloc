@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 09:49:08 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 10:57:22 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ void	set_current_as_free_block(t_mem_zone* zone)
 		{
 		       if (block->free == BLOCK_FREE)
 		       {
+				write(1, "#", 1);
 			       zone->current_block = block;
 			       break ;
 		       }
+		       block = block->next;
 		}
 	}
 }
@@ -44,7 +46,7 @@ void	new_zone(t_mem_zone* zone, const enum e_zones_type zone_type)
 { /* TODO: need better implementation of block creation */
 	void* block_mem = zone + sizeof(t_mem_zone);
 	size_t size = TINY_SIZE;
-	zone->first_block = new_block(block_mem, size, zone_type);
+	zone->first_block = new_block(block_mem, zone, size, zone_type);
 	zone->current_block = zone->first_block;
 	zone->blocks_created = 1;
 	zone->blocks_used = 0;

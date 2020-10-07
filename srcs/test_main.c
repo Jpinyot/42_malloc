@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 10:04:12 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 18:29:07 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 10:58:35 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@
 int	main(void)
 {
 	int* test;
-	for (int i = 0; i < 101; i++) {
-		/* 1320926 */
-		test = malloc(sizeof(int));
+	for (int i = 0; i < 10; i++) {
+		test = ft_malloc(sizeof(int));
 		*test = i;
+		printf("%-3i---%p\n", *test, test);
+		ft_free(test);
+	}
+		printf("---------------------------\n");
+	for (int i = 0; i < 10; i++) {
+		test = ft_malloc(sizeof(int));
 		printf("%-3i---%p\n", *test, test);
 	}
 	return (0);

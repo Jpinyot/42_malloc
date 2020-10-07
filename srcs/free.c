@@ -6,24 +6,14 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:10 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 12:51:48 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 10:56:54 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmalloc.h"
+#include "utils.h"
 
-
-/* TODO: WAYS TO IMPLEMENT FREE: 
- * 		-first use non freed blocks and after use current_block for empty
- * 			-need *prev for correct maintannce of the linked list
- * 		-first use freed blocks or not, depend of implementation
- * 			-need to iterate zone, to set current the first freed block:
- * 				-when free
- * 				-when used a freed block
- * */
-
-
-void	free(void *ptr)
+void	ft_free(void *ptr)
 {
 	t_mem_block*	block;
 	t_mem_zone*	zone;
@@ -31,12 +21,15 @@ void	free(void *ptr)
 	if (ptr != NULL && k_zones != NULL)
 	{
 		block = (t_mem_block*)(ptr - sizeof(t_mem_block));
-		/* if () { */
-			if (block->free == BLOCK_FREE) {
-				return ;
-			}
-			/* zone = getzone; */
-			/* free_block(block); */
-		/* } */
+		if (block->free == BLOCK_FREE) {
+			return ;
+		}
+		zone = block->zone;
+		zone->blocks_used -= 1;
+		if (zone->blocks_created == ALLOCATION_PER_ZONE) {
+			set_current_as_free_block(zone);
+		}
+		block->free = BLOCK_FREE;
+
 	}
 }
