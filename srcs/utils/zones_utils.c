@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 18:51:51 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 09:49:08 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ static int	get_zone_size_by_zone_type(const enum e_zones_type zone_type)
 		return 0;
 }
 
+void	set_current_as_free_block(t_mem_zone* zone)
+{
+	t_mem_block* block;
+
+	zone->current_block = NULL;
+	if (zone->blocks_used < ALLOCATION_PER_ZONE)
+	{
+		block = zone->first_block;
+		while (block)
+		{
+		       if (block->free == BLOCK_FREE)
+		       {
+			       zone->current_block = block;
+			       break ;
+		       }
+		}
+	}
+}
 void	new_zone(t_mem_zone* zone, const enum e_zones_type zone_type)
 { /* TODO: need better implementation of block creation */
 	void* block_mem = zone + sizeof(t_mem_zone);

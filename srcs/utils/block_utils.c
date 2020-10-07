@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 18:55:20 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 09:51:20 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,12 @@ t_mem_block	*add_block_to_zone(t_mem_zone* zone, const size_t size, const enum e
 		else if (zone_type == e_small)
 			new_block_mem = block + sizeof(t_mem_block) + SMALL_SIZE;
 		next_block = new_block(new_block_mem, size, zone_type);
-		/* TODO: Need something next_block?? */
-		/* block->size = 10; */
 		block->next = next_block;
 		zone->current_block = next_block;
 		zone->blocks_created += 1;
 	}
-	if (zone->blocks_created == ALLOCATION_PER_ZONE) {} /* TODO: Need to do somthing when last malloc? */
-		zone->current_block = check_if_free_mem();
-	/* zone->blocks_created += 1; done in malloc */
+	if (zone->blocks_created == ALLOCATION_PER_ZONE && zone->blocks_used < ALLOCATION_PER_ZONE)
+		set_current_as_free_block(zone);
 	return (block);
 	/* return (curr_zone->current_block); */
 }
