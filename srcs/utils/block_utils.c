@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 11:13:58 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 11:51:02 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_mem_block	*add_block_to_zone(t_mem_zone* zone, const size_t size, const enum e
 	}
 	else if (zone->blocks_created == ALLOCATION_PER_ZONE && zone->blocks_used < ALLOCATION_PER_ZONE)
 	{
+		write(1, "#", 1);
 		block->free = BLOCK_USED; /* TODO: NEED TO BETTER THING WHEN MARK BLOCK AS FREE!!! */
 		set_current_as_free_block(zone);
 	}

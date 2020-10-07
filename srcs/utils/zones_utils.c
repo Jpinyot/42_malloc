@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:31:35 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 11:08:07 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 11:49:48 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	new_zone(t_mem_zone* zone, const enum e_zones_type zone_type)
 
 void		init_zone_from_size_type(t_mem_zone** zone, const enum e_zones_type zone_type)
 {
+		printf("---------------------------\n");
 	int zone_size = get_zone_size_by_zone_type(zone_type);
 	*zone = mmap(0, zone_size , PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1,  0);
 	new_zone(*zone, zone_type);
