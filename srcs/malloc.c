@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:31 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 16:25:44 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 16:59:58 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ static t_mem_zone 	*get_zone_from_size(const size_t size)
 	zone = k_zones;
 	zone_type = get_zone_type_from_size(size);
 	while (zone != NULL) {
+	write(1, "@", 1);
 		if (zone->zone_type == zone_type &&
 			zone->blocks_used < ALLOCATION_PER_ZONE) {
+	write(1, "@", 1);
 			break ;
 		}
+	write(1, "@", 1);
 		zone = zone->next;
 	}
 	if ( zone == NULL) {

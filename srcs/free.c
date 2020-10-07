@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:28:10 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 16:44:01 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 17:01:28 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	delete_zone(t_mem_zone* zone)
 	}
 	else if (k_zones == zone)
 	{
-		k_zones->next = zone->next;
+		k_zones = zone->next;
 	}
 		munmap(zone, get_zone_size_from_zone_type(zone->zone_type));
 		zone = NULL;
