@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:23:33 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 11:51:02 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 15:49:41 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,23 @@ t_mem_block	*add_block_to_zone(t_mem_zone* zone, const size_t size, const enum e
 	}
 	return (block);
 	/* return (curr_zone->current_block); */
+}
+
+t_mem_block	*alloc_block(t_mem_zone* zone, const size_t size)
+{
+	int block_size = size + sizeof(t_mem_block);
+	void* block;
+
+	block = mmap(0, block_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1,  0);
+	block = new_block(block, zone, size, zone->zone_type);
+	if (zone->first_block == NULL)
+	{
+		zone->first_block = block;
+	}
+	else
+	{
+		((t_mem_zone*)zone->current_block)->next = block;
+	}
+	zone->current_block = zone;
+	return(block);
 }
