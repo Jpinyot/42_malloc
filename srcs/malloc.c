@@ -13,9 +13,6 @@
 #include "libmalloc.h"
 #include "utils.h"
 
-
-/* TODO: delete block struct?? what it comprts */
-
 static enum e_zones_type	get_zone_type_from_size(const size_t size)
 {
 	if (size < TINY_MAX_SIZE)

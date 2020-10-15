@@ -40,6 +40,26 @@ static void	delete_zone(t_mem_zone* zone)
 
 static void	delete_block(t_mem_zone* zone, t_mem_block* block)
 {
+	t_mem_block* tmp_block;
+
+	if (zone == NULL)
+		return ;
+	tmp_block = zone->first_block;
+	while (tmp_block && tmp_block->next && tmp_block != block)
+	{
+		if (tmp_block->next == block)
+			break ;
+	}
+	if (tmp_block->next == block)
+	{
+		tmp_block->next = block->next;
+	}
+	else if (zone->first_block == block)
+	{
+		zone->first_block = block->next;
+	}
+	munmap (block, sizeof(t_mem_block) + block->size);
+	block = NULL;
 }
 
 void	ft_free(void *ptr)
@@ -55,18 +75,22 @@ void	ft_free(void *ptr)
 		}
 		zone = block->zone;
 		zone->blocks_used -= 1;
-		if (zone->blocks_used == 0)
+		if (zone->zone_type == e_large)
 		{
-			delete_zone(zone);
-		}
-		else if (zone->zone_type == e_large)
-		{
+			write(1, "#", 1);
 			delete_block(zone, block);
 		}
-		else if (zone->blocks_created == ALLOCATION_PER_ZONE) { /* ERROR: When last block is not used before free */
-			/* write(1, "@", 1); */
+		else {
 			block->free = BLOCK_FREE;
-			set_current_as_free_block(zone);
+			if (zone->blocks_created == ALLOCATION_PER_ZONE)
+		       	{
+				set_current_as_free_block(zone);
+			}
+		}
+		if (zone->blocks_used == 0)
+		{
+			write(1, "%", 1);
+			delete_zone(zone);
 		}
 	}
 }
